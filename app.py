@@ -1,18 +1,25 @@
-#Team Hello...
-#Tiffany Moi and Alessandro Cauthon
+#Team redirectBroccoli
+#Alessandro Cartegni, Terry Guan
 #SoftDev1 pd7
-#HW07 -- Do I Know You?
-#2017-10-05
-from flask import Flask, render_template, request, session
+#HW08 --
+#2017-10-06
+from flask import Flask, render_template, request, session, redirect, url_for
 import os
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
+usr = ""
 
 #root route pulls up login template
 @app.route("/")
 def hi():
+    if "username" in session:
+        return redirect(url_for("process"))
     return render_template('login.html', message = "")
+
+@app.route("/welcome")
+def welcome():
+    
 
 #auth checks for the correct username and password
 @app.route("/auth", methods = ["POST"])
@@ -21,6 +28,7 @@ def process():
     pw = request.form["Pass"] #same for pw
     reqmeth = request.method
     if (person == "KenM"): #checks for correct info
+        global usr = person
         if (pw == "1234"):  
             session["username"] = person
             return render_template('welcome.html', name = person, method = reqmeth) #if theinfo is good, renders the welcome

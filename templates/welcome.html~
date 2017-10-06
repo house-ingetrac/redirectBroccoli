@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome!</title>
+  </head>
+  <body>
+    <h1>WOW!</h1>
+    <p>Hi {{name}}! It's nice to meet you!</p>
+    <p>You entered in your info using {{method}}</p>
+    <form action="/logout">
+      <input type="submit" value="Logout">
+    </form>
+  </body>
+</html>

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login!</title>
-  </head>
-  <body>
-    <h1>Login</h1>
+{%extends "base.html"%}
+{%block title%}
+Login
+{%endblock title%}
+{%block body%}
     <form action="/auth", method = "POST">
       <p>Enter login info</p>
       <p><strong>Username:</strong></p>
@@ -14,5 +12,4 @@
       <input type="submit" value="Login">
     </form><br><br>
     <p><i>{{message}}</i></p> <!-- where eventual messages are printed -->
-  </body>
-</html>
+{%endblock body%}

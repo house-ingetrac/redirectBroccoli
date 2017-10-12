@@ -3,7 +3,7 @@
 #SoftDev1 pd7
 #HW08 --
 #2017-10-06
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import os
 app = Flask(__name__)
 
@@ -16,12 +16,12 @@ method = ""
 def home():
     if "username" in session:
         return redirect(url_for("welcome"))
-    return render_template("login.html", message = "")
+    return render_template("login.html")
 
 @app.route("/welcome")
 def welcome():
     if "username" not in session:
-        return render_template("login.html", message = "")
+        return render_template("login.html",)
     else:
         return render_template("welcome.html", name = usr, method= method)
 #auth checks for the correct username and password
@@ -36,10 +36,12 @@ def auth():
             session["username"] = person
             return redirect(url_for("welcome"))
         else: #if user was correct but pw incorrect, back to login with message
-            return render_template('login.html', message = "Invalid Password")
+            flash("Invalid Password")
+            # return render_template('login.html', message = "Invalid Password")
     else: #if ser incorrect, back to login with message
-        return render_template('login.html', message = "Invalid Username")
-
+        flash("Invalid Username")
+        # return render_template('login.html', message = "Invalid Username")
+    return render_template("login.html")
 @app.route("/logout")
 def logout(): #ends session and brings back to login with message
     session.pop("username")
